@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}KinoSite{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="site-shell">
+        <header class="site-header">
+            <a class="brand" href="{% url 'home' %}">KinoSite</a>
+            <nav class="nav-links">
+                <a href="{% url 'home' %}">Главная</a>
+                {% if user.is_authenticated %}
+                    <span class="user-badge">{{ user.username }}</span>
+                    <a class="button-link" href="{% url 'logout' %}">Выйти</a>
+                {% else %}
+                    <a class="button-link" href="{% url 'login' %}">Вход</a>
+                    <a class="button-link" href="{% url 'registration' %}">Регистрация</a>
+                {% endif %}
+            </nav>
+        </header>
+
+        <main class="page-content">
+            {% block content %}{% endblock %}
+        </main>
+
+        <footer class="site-footer">
+            <p>Кинотеатр на Django • Красивый интерфейс и удобная навигация</p>
+        </footer>
+    </div>
+</body>
+</html>

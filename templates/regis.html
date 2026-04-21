@@ -1,55 +1,26 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-   <head>
-      <meta charset="utf-8">
-      <title>Glowing Inputs Registration Form UI</title>
-      <link rel="stylesheet" href="{% static 'css/main.css' %}">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
-   </head>
-   <body>
-      <div class="login-form">
-         <div class="text">
-            REGISTER
-         </div>
-         <form method="post">
-            {% csrf_token %}
-            
-            <div class="field">
-               <div class="fas fa-user"></div>
-               <input type="text" name="first_name" placeholder="First Name" required>
-            </div>
+{% extends 'base.html' %}
 
-            <div class="field">
-               <div class="fas fa-user"></div>
-               <input type="text" name="last_name" placeholder="Last Name" required>
-            </div>
+{% block title %}Регистрация{% endblock %}
 
-            <div class="field">
-               <div class="fas fa-envelope"></div>
-               <input type="text" name="username" placeholder="User Name" required>
+{% block content %}
+<div class="auth-card">
+    <h1>Регистрация</h1>
+    <p class="auth-description">Создайте аккаунт, чтобы управлять своим списком фильмов.</p>
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {% if formalar.non_field_errors %}
+            <div class="form-errors">{{ formalar.non_field_errors }}</div>
+        {% endif %}
+        {% for field in formalar %}
+            <div class="field-group">
+                {{ field.label_tag }}
+                {{ field }}
+                {% for error in field.errors %}
+                    <span class="field-error">{{ error }}</span>
+                {% endfor %}
             </div>
-
-            <div class="field">
-               <div class="fas fa-envelope"></div>
-               <input type="text" name="email" placeholder="Email" required>
-            </div>
-            
-            <div class="field">
-               <div class="fas fa-lock"></div>
-               <input type="password" name="password1" placeholder="Password" required>
-            </div>
-
-            <div class="field">
-               <div class="fas fa-lock"></div>
-               <input type="password" name="password2" placeholder="Confirm Password" required>
-            </div>
-            
-            <button type="submit">REGISTER</button>
-            <div class="link">
-               Already a member? <a href="{% url 'log_in' %}">Login here</a>
-            </div>
-         </form>
-      </div>
-   </body>
-</html>
+        {% endfor %}
+        <button type="submit">Зарегистрироваться</button>
+    </form>
+    <p class="auth-bottom">Уже есть аккаунт? <a href="{% url 'log_in' %}">Войти</a></p>
+</div>

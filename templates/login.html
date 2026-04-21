@@ -1,34 +1,31 @@
-{% load static %}
-<!DOCTYPE html>
-<!-- Created By CodingNepal -->
-<html lang="en" dir="ltr">
-   <head>
-      <meta charset="utf-8">
-      <title>Glowing Inputs Login Form UI</title>
-      <link rel="stylesheet" href="{% static 'css/main.css' %}">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
-   </head>
-   <body>
-      <div class="login-form">
-         <div class="text">
-            LOGIN
-         </div>
-         <form method="post">
-            {% csrf_token %}
-            <div class="field">
-               <div class="fas fa-envelope"></div>
-               <input type="text" placeholder="User Name">
-            </div>
-            <div class="field">
-               <div class="fas fa-lock"></div>
-               <input type="password" placeholder="Password">
-            </div>
-            <button>LOGIN</button>
-            <div class="link">
-               Not a member?
-               <a href="{% url 'registration' %}">Signup now</a>
-            </div>
-         </form>
-      </div>
-   </body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Вход{% endblock %}
+
+{% block content %}
+<div class="auth-card">
+    <h1>Вход</h1>
+    <p class="auth-description">Введите имя пользователя и пароль, чтобы продолжить.</p>
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {% if formalar.non_field_errors %}
+            <div class="form-errors">{{ formalar.non_field_errors }}</div>
+        {% endif %}
+        <div class="field-group">
+            {{ formalar.username.label_tag }}
+            {{ formalar.username }}
+            {% for error in formalar.username.errors %}
+                <span class="field-error">{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div class="field-group">
+            {{ formalar.password.label_tag }}
+            {{ formalar.password }}
+            {% for error in formalar.password.errors %}
+                <span class="field-error">{{ error }}</span>
+            {% endfor %}
+        </div>
+        <button type="submit">Войти</button>
+    </form>
+    <p class="auth-bottom">Нет аккаунта? <a href="{% url 'registration' %}">Зарегистрируйтесь</a></p>
+</div>

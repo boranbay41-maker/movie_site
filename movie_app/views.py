@@ -16,8 +16,6 @@ def registrciya(request):
             user = formalar.save()
             login(request,user)
             return redirect('home')
-        else:
-            print(formalar.errors)
     else:
         formalar = RegisrtationForm()
     return render(request,'regis.html',{'formalar':formalar})

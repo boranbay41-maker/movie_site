@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+   <head>
+      <meta charset="utf-8">
+      <title>Glowing Inputs Registration Form UI</title>
+      <link rel="stylesheet" href="{% static 'css/main.css' %}">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+   </head>
+   <body>
+      <div class="login-form">
+         <div class="text">
+            REGISTER
+         </div>
+         <form method="post">
+            {% csrf_token %}
+            
+            <div class="field">
+               <div class="fas fa-user"></div>
+               <input type="text" name="first_name" placeholder="First Name" required>
+            </div>
+
+            <div class="field">
+               <div class="fas fa-user"></div>
+               <input type="text" name="last_name" placeholder="Last Name" required>
+            </div>
+
+            <div class="field">
+               <div class="fas fa-envelope"></div>
+               <input type="text" name="username" placeholder="User Name" required>
+            </div>
+
+            <div class="field">
+               <div class="fas fa-envelope"></div>
+               <input type="text" name="email" placeholder="Email" required>
+            </div>
+            
+            <div class="field">
+               <div class="fas fa-lock"></div>
+               <input type="password" name="password1" placeholder="Password" required>
+            </div>
+
+            <div class="field">
+               <div class="fas fa-lock"></div>
+               <input type="password" name="password2" placeholder="Confirm Password" required>
+            </div>
+            
+            <button type="submit">REGISTER</button>
+            <div class="link">
+               Already a member? <a href="{% url 'log_in' %}">Login here</a>
+            </div>
+         </form>
+      </div>
+   </body>
+</html>

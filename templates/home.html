@@ -15,14 +15,17 @@
     <h2 class="section-title">Коллекция фильмов</h2>
     <div class="movie-list">
         {% for item in kinolar %}
-        <article class="movie-card">
-            {% if item.image %}
-            <img src="{{ item.image.url }}" alt="{{ item.desc }}">
-            {% endif %}
-            <div class="movie-card-body">
-                <p>{{ item.desc|truncatewords:18 }}</p>
-            </div>
-        </article>
+        <a href="{% url 'product_detail' item.id %}" class="movie-card-link">
+            <article class="movie-card">
+                {% if item.image %}
+                <img src="{{ item.image.url }}" alt="{{ item.title }}">
+                {% endif %}
+                <div class="movie-card-body">
+                    <h3 class="movie-title">{{ item.title }}</h3>
+                    <p>{{ item.desc|truncatewords:18 }}</p>
+                </div>
+            </article>
+        </a>
         {% empty %}
         <p class="empty-state">Фильмы пока не добавлены. Загляните позже.</p>
         {% endfor %}

@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from .models import Movie
 from django.contrib.auth import login, logout, authenticate
 from .forms import RegisrtationForm,LoginForm
@@ -6,6 +6,11 @@ from .forms import RegisrtationForm,LoginForm
 def home(request):
     items = Movie.objects.all()
     return render(request, 'home.html', {'kinolar': items})
+
+
+def product_detail(request, pk):
+    movie = get_object_or_404(Movie, pk=pk)
+    return render(request, 'product_detail.html', {'movie': movie})
 
 
 

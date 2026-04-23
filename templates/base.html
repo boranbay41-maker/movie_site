@@ -9,6 +9,14 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}?v=2">
 </head>
 <body>
+
+    
+    <form method="get" class="search-form">
+            <input type="text" name="q" placeholder="Поиск фильмов" class="search-input">
+            <button type="submit" class="search-button">Найти</button>  
+    </form>
+
+
     <div class="site-shell">
         <header class="site-header">
             <a class="brand" href="{% url 'home' %}">KinoSite</a>

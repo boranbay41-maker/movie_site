@@ -78,19 +78,42 @@
 
 .movie-card img {
     width: 100%;
+    height: 300px;
     display: block;
     object-fit: cover;
-    min-height: 220px;
 }
 
 .movie-card-body {
     padding: 20px;
+    height: 160px;
+    display: flex;
+    flex-direction: column;
+}
+
+.movie-title {
+    margin: 0 0 12px 0;
+    color: #f8fafc;
+    font-size: 1.1rem;
+    line-height: 1.3;
+    min-height: 2.6em;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 
 .movie-card-body p {
     margin: 0;
     color: #cbd5e1;
-    line-height: 1.7;
+    line-height: 1.6;
+    font-size: 0.9rem;
+    flex-grow: 1;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 
 .empty-state {

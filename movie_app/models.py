@@ -5,6 +5,12 @@ class CustomUser(AbstractUser):
     phone_num = models.CharField(max_length=13, verbose_name="Номер телефона")
     avatar = models.ImageField(upload_to='avatars/', null=True, blank=True, verbose_name="Аватар")
 
+
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
+
 class Actors(models.Model):
     name = models.CharField(max_length=50)
     sure_name = models.CharField(max_length=50)
@@ -28,25 +34,14 @@ class Genres(models.Model):
     def __str__(self):
         return self.genre
     
- 
-class Comments(models.Model):
-    text = models.TextField
-    created_date = models.DateField(auto_now_add=True)
-    author = models.ForeignKey(CustomUser,on_delete=models.CASCADE)
-    
-    def __str__(self):
-        return self.text
-    
     
 class Languages(models.Model):
     language = models.CharField(max_length=50)   
     
     def __str__(self):
         return self.language
-
- 
-
-
+    
+    
 class Movie(models.Model):
     title = models.CharField(max_length=255)
     year = models.TextField()
@@ -56,9 +51,22 @@ class Movie(models.Model):
     film = models.FileField()
     actors = models.ManyToManyField(Actors)
     countries = models.ManyToManyField(Country)
-    comments = models.ManyToManyField(Comments,null=True,blank=True)
     languages = models.ManyToManyField(Languages)
     genres = models.ManyToManyField(Genres)
     
     def __str__(self):
         return self.title
+    
+    
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.text
+
+ 
+
+

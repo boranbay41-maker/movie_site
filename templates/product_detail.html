@@ -74,6 +74,34 @@
             </div>
             {% endif %}
 
+            <div class="detail-comments">
+                <h2>Комментарии</h2>
+                {% if comments %}
+                    <ul class="comments-list">
+                        {% for comment in comments %}
+                        <li class="comment-item">
+                            <p class="comment-user">{{ comment.user.username }}:</p>
+                            <p class="comment-text">{{ comment.text }}</p>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p class="no-comments">Пока нет комментариев. Будьте первым, кто оставит отзыв!</p>
+                {% endif %}
+
+                {% if user.is_authenticated %}
+                <div class="comment-form">
+                    <h3>Оставить комментарий</h3>
+                    <form method="post" action="{% url 'add_comment' movie.id %}">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit">Отправить</button>
+                    </form>
+                </div>
+                {% else %}
+                <p class="login-prompt">Чтобы оставить комментарий, пожалуйста, <a href="{% url 'login' %}">войдите в аккаунт</a>.</p>
+                {% endif %}
+
             <a href="{% url 'home' %}" class="back-link">← Вернуться на главную</a>
         </div>
     </div>

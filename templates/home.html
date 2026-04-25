@@ -30,5 +30,21 @@
         <p class="empty-state">Фильмы пока не добавлены. Загляните позже.</p>
         {% endfor %}
     </div>
+
+    {% if page_obj.has_other_pages %}
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+            <a href="?page=1{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" class="paginator-link">Первая</a>
+            <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" class="paginator-link">← Назад</a>
+        {% endif %}
+
+        <span class="paginator-info">Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" class="paginator-link">Вперёд →</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" class="paginator-link">Последняя</a>
+        {% endif %}
+    </div>
+    {% endif %}
 </section>
 {% endblock %}

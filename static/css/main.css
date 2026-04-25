@@ -309,6 +309,40 @@ button[type='submit']:hover {
     padding: 40px 0;
 }
 
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-top: 40px;
+    padding: 20px 0;
+    flex-wrap: wrap;
+}
+
+.paginator-link {
+    padding: 10px 16px;
+    background: rgba(96, 165, 250, 0.1);
+    border: 1px solid rgba(96, 165, 250, 0.3);
+    border-radius: 8px;
+    color: #60a5fa;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.paginator-link:hover {
+    background: rgba(96, 165, 250, 0.2);
+    border-color: rgba(96, 165, 250, 0.6);
+    transform: translateY(-2px);
+}
+
+.paginator-info {
+    color: #94a3b8;
+    font-size: 0.95rem;
+    padding: 0 12px;
+}
+
 @media (max-width: 640px) {
     .hero {
         padding-top: 30px;
@@ -316,6 +350,15 @@ button[type='submit']:hover {
 
     .hero-copy {
         padding: 28px 24px 24px;
+    }
+
+    .paginator-link {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+    }
+
+    .paginator-info {
+        font-size: 0.85rem;
     }
 }
 
@@ -471,6 +514,78 @@ button[type='submit']:hover {
   .detail-container {
     grid-template-columns: 1fr;
     gap: 32px;
+  }
+}
+
+.search-form {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 0 20px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 300px;
+  padding: 16px 20px;
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(96, 165, 250, 0.3);
+  border-radius: 12px;
+  color: #f8fafc;
+  font-size: 1.1rem;
+  font-family: 'Poppins', sans-serif;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-input::placeholder {
+  color: #64748b;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.15);
+}
+
+.search-button {
+  padding: 14px 20px;
+  background: linear-gradient(135deg, #2563eb 0%, #0ea5e9 100%);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  white-space: nowrap;
+}
+
+.search-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
+}
+
+.search-button:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 640px) {
+  .search-form {
+    flex-direction: column;
+    padding: 0 16px;
+  }
+
+  .search-input {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .search-button {
+    width: 100%;
   }
 }
 

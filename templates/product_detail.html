@@ -92,7 +92,7 @@
                 {% if user.is_authenticated %}
                 <div class="comment-form">
                     <h3>Оставить комментарий</h3>
-                    <form method="post" action="{% url 'add_comment' movie.id %}">
+                    <form method="post" action="{% url 'product_detail' movie.id %}">
                         {% csrf_token %}
                         {{ form.as_p }}
                         <button type="submit">Отправить</button>

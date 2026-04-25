@@ -4,7 +4,6 @@ from django.contrib.auth import login, logout, authenticate
 from .forms import CommentForm, RegisrtationForm,LoginForm
 from django.db.models import Q
 from django.core.paginator import Paginator
-from django.contrib.auth.decorators import login_required
 
 def home(request):
     poisk = request.GET.get('q')
@@ -42,12 +41,17 @@ def product_detail(request, pk):
     comments = Comment.objects.filter(movie=movie)
     
     if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.user = request.user        
-            comment.movie_id = pk        
-            comment.save()
+        if request.user.is_authenticated:
+            form = CommentForm(request.POST)
+            if form.is_valid():
+                comment = form.save(commit=False)
+                comment.user = request.user        
+                comment.movie = movie
+                comment.save()
+                return redirect('product_detail', pk=pk)
+        else:
+            return redirect('login')
+    
     return render(request, 'product_detail.html', {'movie': movie, 'comments': comments, 'form': CommentForm()})
 
 
@@ -57,8 +61,12 @@ def registrciya(request):
         formalar = RegisrtationForm(request.POST)
         if formalar.is_valid():
             user = formalar.save()
-            login(request,user)
-            return redirect('home')
+            username = formalar.cleaned_data.get('username')
+            password = formalar.cleaned_data.get('password1')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('home')
     else:
         formalar = RegisrtationForm()
     return render(request,'regis.html',{'formalar':formalar})
@@ -66,13 +74,13 @@ def registrciya(request):
 
 def kiriw(request):
     if request.method=='POST':
-        formalar = LoginForm(request.POST)
+        formalar = LoginForm(request, data=request.POST)
         if formalar.is_valid():
             user = formalar.get_user()
             login(request,user)
             return redirect('home')
     else:
-        formalar = LoginForm()
+        formalar = LoginForm(request)
     return render(request,'login.html',{'formalar':formalar})
 
 
@@ -81,7 +89,3 @@ def log_out(request):
     return redirect('home')
 
 
-@login_required  
-def add_comment(request, movie_id):
-                      
-    return redirect('product_detail', pk=movie_id)

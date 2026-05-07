@@ -74,6 +74,19 @@
             </div>
             {% endif %}
 
+            {% if movie.film %}
+            <div class="detail-film">
+                <h2>Смотреть фильм</h2>
+                <video width="100%" height="500" controls style="max-width: 100%; margin: 20px 0; border-radius: 8px;">
+                    <source src="{{ movie.film.url }}" type="video/mp4">
+                    <source src="{{ movie.film.url }}" type="video/webm">
+                    <source src="{{ movie.film.url }}" type="video/ogg">
+                    Ваш браузер не поддерживает видео тег. Пожалуйста, <a href="{{ movie.film.url }}" download>скачайте фильм</a>.
+                </video>
+                <a href="{{ movie.film.url }}" download class="download-link" style="display: inline-block; margin-top: 10px; padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">⬇️ Скачать фильм</a>
+            </div>
+            {% endif %}
+
             <div class="detail-comments">
                 <h2>Комментарии</h2>
                 {% if comments %}
